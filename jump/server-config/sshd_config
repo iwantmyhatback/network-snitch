@@ -1,0 +1,5 @@
+GatewayPorts clientspecified
+ChallengeResponseAuthentication no
+ClientAliveInterval 5
+Subsystem sftp /usr/lib/openssh/sftp-server
+PasswordAuthentication no
