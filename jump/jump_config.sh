@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd $(dirname $0)
+
 # Check if an argument is passed to confirm that loaded directory is uploaded to server
 if [ $# -eq 0 ]
 then
@@ -37,6 +39,7 @@ cp ./server-auth/authorized_keys /home/jumpuser/.ssh/authorized_keys
 chmod 644 /home/jumpuser/.ssh/authorized_keys
 chown -R jumpuser:jumpuser /home/jumpuser
 chsh -s /bin/bash jumpuser
+usermod -aG sudo jumpuser
 
 # Create no-privlege "dummy" user to prevent reverse access from a stolen device
 echo "creating dummy account on this machine"
