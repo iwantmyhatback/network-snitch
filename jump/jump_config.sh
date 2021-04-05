@@ -36,7 +36,7 @@ passwd jumpuser
 # Authorize home to login with a normal shell
 echo "Setting jumpuser account rules"
 cp ./server-auth/authorized_keys /home/jumpuser/.ssh/authorized_keys
-chmod 644 /home/jumpuser/.ssh/authorized_keys
+chmod 600 /home/jumpuser/.ssh/authorized_keys
 chown -R jumpuser:jumpuser /home/jumpuser
 chsh -s /bin/bash jumpuser
 usermod -aG sudo jumpuser
@@ -52,12 +52,12 @@ passwd dummy
 # Authorize dummy login, and prevent code execution
 echo "Setting dummy account rules"
 cp ./sever-auth/dummy/authorized_keys /home/dummy/.ssh/authorized_keys
-chmod 644 /home/dummy/.ssh/authorized_keys
+chmod 600 /home/dummy/.ssh/authorized_keys
 chown -R dummy:dummy /home/dummy
 chsh -s /bin/false dummy
 
-# Configure ssh server keys and universtal settings
-echo "Setting universtal ssh rules and server keys"
+# Configure ssh server keys and universal settings
+echo "Setting universal ssh rules and server keys"
 mkdir /etc/ssh
 cp ./server-key/ssh_host_ecdsa_key /etc/ssh/ssh_host_ecdsa_key
 chmod 600 /etc/ssh/ssh_host_ecdsa_key
