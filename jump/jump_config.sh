@@ -84,8 +84,8 @@ echo "Cleaning Up"
 chmod 600 ./server-key/ssh_host_ecdsa_key
 chown root:root ./server-key/ssh_host_ecdsa_key
 
-echo "............"
-echo "............"
-echo "... Done ..."
-echo "............"
-echo "............"
+echo ".............."
+echo ".............."
+echo ".... Done ...."
+echo ".............."
+echo ".............."
