@@ -54,3 +54,8 @@ cat ./target/server-key/ssh_host_ecdsa_key.pub >> ./home/known/known_hosts
 echo -n "* " > ./target/known/known_hosts
 cat ./jump/server-key/ssh_host_ecdsa_key.pub >> ./target/known/known_hosts
 
+echo "............"
+echo "............"
+echo "... Done ..."
+echo "............"
+echo "............"
