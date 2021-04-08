@@ -6,7 +6,7 @@ cd $(dirname $0)
 if [ $# -eq 0 ]
 then
 echo " Script requires that you have copied the POPULATED ./credentials/jump to the JUMP server"
-echo " Do this using the following command: scp -r /credentials/jump jumpUser@jump.ip.address:~ "
+echo " Do this using the following command: scp -r /jump-server/jump jumpUser@jump.ip.address:~ "
 echo " If you have done this you can run the jump_config script by passing 'yes' to the script as an argument"
 exit 1
 fi
