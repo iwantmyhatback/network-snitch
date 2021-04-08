@@ -3,7 +3,7 @@
 # Check that user has root access
 if (( $EUID != 0 ))
 then
-  echo "You must run jump_config as root"
+  echo "You must run target_config as root"
   exit 1
 fi
 

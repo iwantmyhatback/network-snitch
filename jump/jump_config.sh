@@ -51,7 +51,7 @@ echo "Set a password for dummy"
 passwd dummy
 # Authorize dummy login, and prevent code execution
 echo "Setting dummy account rules"
-cp ./sever-auth/dummy/authorized_keys /home/dummy/.ssh/authorized_keys
+cp ./server-auth/dummy/authorized_keys /home/dummy/.ssh/authorized_keys
 chmod 600 /home/dummy/.ssh/authorized_keys
 chown -R dummy:dummy /home/dummy
 chsh -s /bin/false dummy

@@ -3,4 +3,4 @@ ChallengeResponseAuthentication no
 Port 22
 ListenAddress 127.0.0.1
 AuthorizedKeysFile /home/snitch/.ssh/authorized_keys
-Subsystem sftp sftp-server
+Subsystem subsystem-sftp sftp-server

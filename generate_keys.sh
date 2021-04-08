@@ -46,12 +46,9 @@ mkdir ./home/known
 mkdir ./target/known
 # Set JUMP and TARGET as known hosts for HOME
 echo "Populating known_host files"
-echo -n "* " > ./home/known/known_hosts
 cat ./jump/server-key/ssh_host_ecdsa_key.pub >> ./home/known/known_hosts
-echo -n "* " >> ./home/known/known_hosts
 cat ./target/server-key/ssh_host_ecdsa_key.pub >> ./home/known/known_hosts
 # Set JUMP as known host for TARGET
-echo -n "* " > ./target/known/known_hosts
 cat ./jump/server-key/ssh_host_ecdsa_key.pub >> ./target/known/known_hosts
 
 echo ".............."
