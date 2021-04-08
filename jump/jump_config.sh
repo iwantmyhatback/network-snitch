@@ -36,7 +36,7 @@ passwd jumpuser
 # Authorize home to login with a normal shell
 echo "Setting jumpuser account rules"
 cp ./server-auth/authorized_keys /home/jumpuser/.ssh/authorized_keys
-chmod 600 /home/jumpuser/.ssh/authorized_keys
+chmod 644 /home/jumpuser/.ssh/authorized_keys
 chown -R jumpuser:jumpuser /home/jumpuser
 chsh -s /bin/bash jumpuser
 usermod -aG sudo jumpuser
@@ -52,7 +52,7 @@ passwd dummy
 # Authorize dummy login, and prevent code execution
 echo "Setting dummy account rules"
 cp ./server-auth/dummy/authorized_keys /home/dummy/.ssh/authorized_keys
-chmod 600 /home/dummy/.ssh/authorized_keys
+chmod 644 /home/dummy/.ssh/authorized_keys
 chown -R dummy:dummy /home/dummy
 chsh -s /bin/false dummy
 
@@ -71,12 +71,16 @@ chown -R root:root /etc/ssh
 echo "Setting initial firewall rules"
 iptables-restore < ./firewall/rules.v4
 ip6tables-restore < ./firewall/rules.v6
-echo "Installing persistent firewall and sudo"
-apt install iptables-persistent sudo -y
+echo "Create iptables directory if needed"
 mkdir /etc/iptables/
 echo "Installing persistent firewall rules"
 cp ./firewall/rules.v4 /etc/iptables
 cp ./firewall/rules.v6 /etc/iptables
+echo "Installing persistent firewall and sudo"
+apt install iptables-persistent sudo -y
+iptables-save > /etc/iptables/rules.v4
+ip6tables-save > /etc/iptables/rules.v6
+
 
 
 # Lock down setup files

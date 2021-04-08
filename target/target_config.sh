@@ -35,14 +35,14 @@ passwd snitch
 # Authorize home to login
 echo "Setting snitch account rules"
 cat ./server-auth/authorized_keys > /home/snitch/.ssh/authorized_keys
-chmod 600 /home/snitch/.ssh/authorized_keys
+chmod 644 /home/snitch/.ssh/authorized_keys
 cat ./known/known_hosts > /home/snitch/.ssh/known_hosts
 chmod 644 /home/snitch/.ssh/known_hosts
 # Set public and private keys and their permissions
 echo "Writing ssh keys"
 cat ./client-key/id_rsa > /home/snitch/.ssh/id_rsa
 chmod 600 /home/snitch/.ssh/id_rsa
-cat ./client-key/id_rsa > /home/snitch/.ssh/id_rsa.pub
+cat ./client-key/id_rsa.pub > /home/snitch/.ssh/id_rsa.pub
 chmod 644 /home/snitch/.ssh/id_rsa.pub
 # Misc additional account settigs
 chown -R snitch:snitch /home/snitch
