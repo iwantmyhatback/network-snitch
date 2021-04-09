@@ -5,7 +5,7 @@ cd $(dirname $0)
 # Check if an argument is passed to confirm that loaded directory is uploaded to server
 if [ $# -eq 0 ]
 then
-echo " Script requires that you have copied the POPULATED ./credentials/jump to the JUMP server"
+echo " Script requires that you have copied the POPULATED ./jump-server/jump to the JUMP server"
 echo " Do this using the following command: scp -r /jump-server/jump jumpUser@jump.ip.address:~ "
 echo " If you have done this you can run the jump_config script by passing 'yes' to the script as an argument"
 exit 1
@@ -37,9 +37,11 @@ passwd jumpuser
 echo "Setting jumpuser account rules"
 cp ./server-auth/authorized_keys /home/jumpuser/.ssh/authorized_keys
 chmod 644 /home/jumpuser/.ssh/authorized_keys
+cp /home/pi/.bashrc /home/jumpuser/.bashrc
 chown -R jumpuser:jumpuser /home/jumpuser
 chsh -s /bin/bash jumpuser
 usermod -aG sudo jumpuser
+
 
 # Create no-privlege "dummy" user to prevent reverse access from a stolen device
 echo "creating dummy account on this machine"
@@ -69,8 +71,10 @@ chown -R root:root /etc/ssh
 
 # Setup firewall
 echo "Setting initial firewall rules"
-iptables-restore < ./firewall/rules.v4
-ip6tables-restore < ./firewall/rules.v6
+iptables-legacy-restore < ./firewall/rules.v4
+ip6tables-legacy-restore < ./firewall/rules.v6
+update-alternatives --set iptables /usr/sbin/iptables-legacy
+update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 echo "Create iptables directory if needed"
 mkdir /etc/iptables/
 echo "Installing persistent firewall rules"

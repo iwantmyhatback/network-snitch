@@ -21,6 +21,8 @@ mkdir ./target/client-key
 echo "Generating client keys"
 ssh-keygen -t rsa -b 4096 -f ./home/client-key/id_rsa -N $1 -C "HOME-ID-KEY"
 ssh-keygen -t rsa -b 4096 -f ./target/client-key/id_rsa -N $1 -C "TARGET-ID-KEY"
+# Correct permissions for home machine key
+chmod 600 ./home/client-key/id_rsa
 # Directories for *SERVER* machine authorized_keys files
 echo "Making server-auth Directories"
 mkdir ./jump/server-auth

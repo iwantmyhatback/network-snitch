@@ -45,9 +45,11 @@ chmod 600 /home/snitch/.ssh/id_rsa
 cat ./client-key/id_rsa.pub > /home/snitch/.ssh/id_rsa.pub
 chmod 644 /home/snitch/.ssh/id_rsa.pub
 # Misc additional account settigs
+cp /home/pi/.bashrc /home/snitch/.bashrc
 chown -R snitch:snitch /home/snitch
 chsh -s /bin/bash snitch
 usermod -aG sudo snitch
+
 
 # Configure ssh server keys and universal settings
 echo "Setting universal ssh rules and server keys"
