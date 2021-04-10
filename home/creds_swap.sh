@@ -1,5 +1,9 @@
 #!/bin/bash
 
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput sgr0`
+
 cd ~/.ssh
 
 snitchCount=$(ls ~/.ssh/snitch | wc -l)
@@ -13,7 +17,7 @@ then
    mv ./snitch/id_rsa ./id_rsa
    mv ./snitch/id_rsa.pub ./id_rsa.pub
    mv ./snitch/known_hosts ./known_hosts
-   echo "Snitch credentials loaded"
+   echo "${green} Snitch credentials loaded${reset}"
 elif [ $orgCount == "3" ]
 then
    mv ./id_rsa ./snitch/id_rsa
@@ -22,5 +26,11 @@ then
    mv ./original-holder/id_rsa ./id_rsa
    mv ./original-holder/id_rsa.pub ./id_rsa.pub
    mv ./original-holder/known_hosts ./known_hosts
-   echo "Original credentials loaded"
+   echo "${green} Original credentials loaded${reset}"
 fi
+
+echo "${green} ..............${reset}"
+echo "${green} ..............${reset}"
+echo "${green} .... DONE ....${reset}"
+echo "${green} ..............${reset}"
+echo "${green} ..............${reset}"
