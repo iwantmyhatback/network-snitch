@@ -2,13 +2,6 @@
 
 cd $(dirname $0)
 
-# Check that user has root access
-if (( $EUID != 0 ))
-then
-  echo "You must run home_config.sh as root"
-  exit 1
-fi
-
 chmod 600 ./client-key/id_rsa
 chmod 644 ./client-key/id_rsa.pub
 chmod 644 ./known/known_hosts
