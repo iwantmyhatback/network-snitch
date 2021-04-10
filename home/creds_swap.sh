@@ -27,10 +27,6 @@ then
    mv ./original-holder/id_rsa.pub ./id_rsa.pub
    mv ./original-holder/known_hosts ./known_hosts
    echo "${green} Original credentials loaded${reset}"
+else
+   echo "${red} Something is wrong... No snitch or original credentials${reset}"
 fi
-
-echo "${green} ..............${reset}"
-echo "${green} ..............${reset}"
-echo "${green} .... DONE ....${reset}"
-echo "${green} ..............${reset}"
-echo "${green} ..............${reset}"
