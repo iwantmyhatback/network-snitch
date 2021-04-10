@@ -25,8 +25,8 @@ echo "Generating client keys"
 ### ssh-keygen -t rsa -b 4096 -f ./home/client-key/id_rsa -N $1 -C "HOME-ID-KEY"
 ### ssh-keygen -t rsa -b 4096 -f ./target/client-key/id_rsa -N $1 -C "TARGET-ID-KEY"
 
-ssh-keygen -t rsa -b 4096 -f ./home/client-key/id_rsa -C "HOME-ID-KEY"
-ssh-keygen -t rsa -b 4096 -f ./target/client-key/id_rsa -C "TARGET-ID-KEY"
+ssh-keygen -t rsa -b 4096 -f ./home/client-key/id_rsa -N "" -C "HOME-ID-KEY"
+ssh-keygen -t rsa -b 4096 -f ./target/client-key/id_rsa -N "" -C "TARGET-ID-KEY"
 # Correct permissions for home machine key
 chmod 600 ./home/client-key/id_rsa
 # Directories for *SERVER* machine authorized_keys files
@@ -51,8 +51,8 @@ echo "Generating server keys"
 ### ssh-keygen -t ecdsa -b 256 -f ./jump/server-key/ssh_host_ecdsa_key -N $1 -C "JUMP-HOST-KEY"
 ### ssh-keygen -t ecdsa -b 256 -f ./target/server-key/ssh_host_ecdsa_key -N $1 -C "TARGET-HOST-KEY"
 
-ssh-keygen -t ecdsa -b 256 -f ./jump/server-key/ssh_host_ecdsa_key -C "JUMP-HOST-KEY"
-ssh-keygen -t ecdsa -b 256 -f ./target/server-key/ssh_host_ecdsa_key -C "TARGET-HOST-KEY"
+ssh-keygen -t ecdsa -b 256 -f ./jump/server-key/ssh_host_ecdsa_key -N "" -C "JUMP-HOST-KEY"
+ssh-keygen -t ecdsa -b 256 -f ./target/server-key/ssh_host_ecdsa_key -N "" -C "TARGET-HOST-KEY"
 # Directories for known hosts
 echo "Making known_host Directories"
 mkdir ./home/known
