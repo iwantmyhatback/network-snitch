@@ -37,7 +37,6 @@ passwd jumpuser
 echo "Setting jumpuser account rules"
 cp ./server-auth/authorized_keys /home/jumpuser/.ssh/authorized_keys
 chmod 644 /home/jumpuser/.ssh/authorized_keys
-cp /home/pi/.bashrc /home/jumpuser/.bashrc
 chown -R jumpuser:jumpuser /home/jumpuser
 chsh -s /bin/bash jumpuser
 usermod -aG sudo jumpuser
@@ -88,12 +87,20 @@ ip6tables-save > /etc/iptables/rules.v6
 
 
 # Lock down setup files
+# echo "Cleaning Up"
+# chmod 600 ./server-key/ssh_host_ecdsa_key
+# chown root:root ./server-key/ssh_host_ecdsa_key
+
+# Remove setup files
 echo "Cleaning Up"
-chmod 600 ./server-key/ssh_host_ecdsa_key
-chown root:root ./server-key/ssh_host_ecdsa_key
+cd ..
+rm -rf jump
 
 echo ".............."
 echo ".............."
 echo ".... Done ...."
 echo ".............."
 echo ".............."
+
+reboot
+

