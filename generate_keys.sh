@@ -1,10 +1,11 @@
 #!/bin/bash
 
-if [ $# -eq 0 ]
-then
-echo "Script requires that you pass a password string for all key files"
-exit 1
-fi
+### PASSWORD REQUIREMENT ###
+### if [ $# -eq 0 ]
+### then
+### echo "Script requires that you pass a password string for all key files"
+### exit 1
+### fi
 
 cd $(dirname $0)
 
@@ -19,8 +20,13 @@ mkdir ./home/client-key
 mkdir ./target/client-key
 # Generate keys for *CLIENT* machines that need access to JUMP
 echo "Generating client keys"
-ssh-keygen -t rsa -b 4096 -f ./home/client-key/id_rsa -N $1 -C "HOME-ID-KEY"
-ssh-keygen -t rsa -b 4096 -f ./target/client-key/id_rsa -N $1 -C "TARGET-ID-KEY"
+
+### PASSWORD REQUIREMENT ###
+### ssh-keygen -t rsa -b 4096 -f ./home/client-key/id_rsa -N $1 -C "HOME-ID-KEY"
+### ssh-keygen -t rsa -b 4096 -f ./target/client-key/id_rsa -N $1 -C "TARGET-ID-KEY"
+
+ssh-keygen -t rsa -b 4096 -f ./home/client-key/id_rsa -C "HOME-ID-KEY"
+ssh-keygen -t rsa -b 4096 -f ./target/client-key/id_rsa -C "TARGET-ID-KEY"
 # Correct permissions for home machine key
 chmod 600 ./home/client-key/id_rsa
 # Directories for *SERVER* machine authorized_keys files
@@ -40,8 +46,13 @@ mkdir ./jump/server-key
 mkdir ./target/server-key
 # Generate keys for *SERVER* machines
 echo "Generating server keys"
-ssh-keygen -t ecdsa -b 256 -f ./jump/server-key/ssh_host_ecdsa_key -N $1 -C "JUMP-HOST-KEY"
-ssh-keygen -t ecdsa -b 256 -f ./target/server-key/ssh_host_ecdsa_key -N $1 -C "TARGET-HOST-KEY"
+
+### PASSWORD REQUIREMENT ###
+### ssh-keygen -t ecdsa -b 256 -f ./jump/server-key/ssh_host_ecdsa_key -N $1 -C "JUMP-HOST-KEY"
+### ssh-keygen -t ecdsa -b 256 -f ./target/server-key/ssh_host_ecdsa_key -N $1 -C "TARGET-HOST-KEY"
+
+ssh-keygen -t ecdsa -b 256 -f ./jump/server-key/ssh_host_ecdsa_key -C "JUMP-HOST-KEY"
+ssh-keygen -t ecdsa -b 256 -f ./target/server-key/ssh_host_ecdsa_key -C "TARGET-HOST-KEY"
 # Directories for known hosts
 echo "Making known_host Directories"
 mkdir ./home/known
