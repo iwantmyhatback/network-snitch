@@ -1,7 +1,9 @@
 #!/bin/bash
 
-red=`tput setaf 1`
-green=`tput setaf 2`
+# Output coloring
+red=`tput setaf 001`
+green=`tput setaf 002`
+yellow=`tput setaf 003`
 reset=`tput sgr0`
 
 cd ~/.ssh

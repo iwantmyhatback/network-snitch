@@ -1,27 +1,30 @@
 #!/bin/bash
 
+# Output coloring
+red=`tput setaf 001`
+green=`tput setaf 002`
+yellow=`tput setaf 003`
+reset=`tput sgr0`
+
 # Check new port number is passed
-if [ $# -eq 0 ]
+if [[ ($# -eq 0) || ($1 < "1024") || ($1 > "65535") ]]
 then
-echo " A new port number is required between 1024 and 65535"
+echo "${red} Please provide a valid argument... ${reset}"
+echo "${red} A new port number is required between 1024 and 65535${reset}"
 exit 1
 fi
 
-red=`tput setaf 1`
-green=`tput setaf 2`
-reset=`tput sgr0`
+echo "${green} Finding the current port${reset}"
+currentPort=$(head -n 1 ./jump/firewall/rules.v4 | sed 's/#//')
 
-echo "${red}!!!    WARNING THIS SCRIPT ONLY RUNS SUCCESSFULLY      !!!${reset}"
-echo "${red}!!!    ONE TIME IF YOU NEED TO CHANGE THE PORT A       !!!${reset}"
-echo "${red}!!!    SECOND TIME THEN YOU NEED TO RECLONE THE REPO   !!!${reset}"
+echo "${green} Replacing current port (${yellow}$currentPort${green}) with the new port (${yellow}$1${green})${reset}"
+sed -i '' "s/$currentPort/$1/g" ./jump/firewall/rules.v4
+sed -i '' "s/$currentPort/$1/g" ./target/target_config.sh
 
-sed -i '' "s/21285/$1/g" ./jump/firewall/rules.v4
-sed -i '' "s/21285/$1/g" ./target/target_config.sh
-
-echo "${green} PORT CHANGED${reset}"
+echo "${green} Port changed${reset}"
 
 echo "${green} ..............${reset}"
 echo "${green} ..............${reset}"
-echo "${green} .... DONE ....${reset}"
+echo "${green} .... ${yellow}DONE${green} ....${reset}"
 echo "${green} ..............${reset}"
 echo "${green} ..............${reset}"

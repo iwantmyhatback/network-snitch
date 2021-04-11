@@ -1,7 +1,9 @@
 #!/bin/bash
 
-red=`tput setaf 1`
-green=`tput setaf 2`
+# Output coloring
+red=`tput setaf 001`
+green=`tput setaf 002`
+yellow=`tput setaf 003`
 reset=`tput sgr0`
 
 cd $(dirname $0)
@@ -15,13 +17,6 @@ echo "${red} If you have done this you can run the jump_config script by passing
 exit 1
 fi
 
-# Check that user has root access
-if (( $EUID != 0 ))
-then
-  echo "${red} You must run jump_config.sh as root${reset}"
-  exit 1
-fi
-
 # Confirm that initial upload requirement is met
 if [ $1 != "yes" ]
 then
@@ -29,10 +24,16 @@ echo "${red} Invalid argument... run script with no arguments to get instruction
 exit 1
 fi
 
+# Check that user has root access
+if (( $EUID != 0 ))
+then
+  echo "${red} You must run jump_config.sh as root${reset}"
+  exit 1
+fi
 
 
 # Create a non-root user for the jump server
-echo "${green}Creating jumpuser account for this maching${reset}"
+echo "${green} Creating jumpuser account for this maching${reset}"
 mkdir /home/jumpuser
 mkdir /home/jumpuser/.ssh
 useradd jumpuser -d /home/jumpuser
@@ -40,7 +41,7 @@ useradd jumpuser -d /home/jumpuser
 echo "${green} Set password for jumpuser${reset}"
 passwd jumpuser
 # Authorize home to login with a normal shell
-echo "${green} setting jumpuser account rules${reset}"
+echo "${green} Setting jumpuser account rules${reset}"
 cp ./server-auth/authorized_keys /home/jumpuser/.ssh/authorized_keys
 chmod 644 /home/jumpuser/.ssh/authorized_keys
 chown -R jumpuser:jumpuser /home/jumpuser
@@ -75,7 +76,6 @@ chmod 644 /etc/ssh/sshd_config
 chown -R root:root /etc/ssh
 
 # Setup firewall
-echo "Setting initial firewall rules"
 echo "${green} Setting initial firewall rules${reset}"
 iptables-legacy-restore < ./firewall/rules.v4
 ip6tables-legacy-restore < ./firewall/rules.v6
@@ -98,7 +98,7 @@ rm -rf jump
 
 echo "${green} ..............${reset}"
 echo "${green} ..............${reset}"
-echo "${green} .... DONE ....${reset}"
+echo "${green} .... ${yellow}DONE${green} ....${reset}"
 echo "${green} ..............${reset}"
 echo "${green} ..............${reset}"
 

