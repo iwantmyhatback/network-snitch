@@ -12,7 +12,7 @@ if [ $# -eq 0 ]
 then
 echo "${red} Pass this script your jump server ip address so it can persist the connection${reset}"
 echo "${red} It can also be passed an optional hostname string as a second argument${reset}"
-echo "${red} Syntax: ./target_config.sh <jump.server.ip.address> \"<Hostname>\"${reset}"
+echo "${red} Syntax: ./target_config.sh <jump.server.ipv4.DNS> \"<Hostname>\"${reset}"
 exit 1
 fi
 
@@ -32,12 +32,12 @@ sudo locale-gen en_US.UTF-8
 
 # Set hostname (advertised on the network)
 echo "${green} Setting the host name ${yellow}${2-"tplink-network-switch"}${reset}"
-echo "$2" > /etc/hostname
+echo "${2-"tplink-network-switch"}" > /etc/hostname
 echo "127.0.0.1       localhost" > /etc/hosts
 echo "::1             localhost ip6-localhost ip6-loopback" >> /etc/hosts
 echo "ff02::1         ip6-allnodes" >> /etc/hosts
 echo "ff02::2         ip6-allrouters" >> /etc/hosts
-echo "127.0.1.1       $2" >> /etc/hosts
+echo "127.0.1.1       ${2-"tplink-network-switch"}" >> /etc/hosts
 
 # Update all packages
 echo "${green} Updating the system... this may take some time${reset}"

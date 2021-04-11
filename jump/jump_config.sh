@@ -75,21 +75,23 @@ cp ./server-config/sshd_config /etc/ssh/sshd_config
 chmod 644 /etc/ssh/sshd_config
 chown -R root:root /etc/ssh
 
-# Setup firewall
-echo "${green} Setting initial firewall rules${reset}"
-iptables-legacy-restore < ./firewall/rules.v4
-ip6tables-legacy-restore < ./firewall/rules.v6
-update-alternatives --set iptables /usr/sbin/iptables-legacy
-update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
-echo "${green} Creating /etc/iptables if needed${reset}"
-mkdir /etc/iptables/
-echo "${green} Installing persistent firewall rules${reset}"
-cp ./firewall/rules.v4 /etc/iptables
-cp ./firewall/rules.v6 /etc/iptables
-echo "${green} installing persistent firewall and sudo${reset}"
-apt install iptables-persistent sudo -y
-iptables-save > /etc/iptables/rules.v4
-ip6tables-save > /etc/iptables/rules.v6
+# Disabled by default because AWS does not require iptables
+
+# # Setup firewall
+# echo "${green} Setting initial firewall rules${reset}"
+# iptables-legacy-restore < ./firewall/rules.v4
+# ip6tables-legacy-restore < ./firewall/rules.v6
+# update-alternatives --set iptables /usr/sbin/iptables-legacy
+# update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+# echo "${green} Creating /etc/iptables if needed${reset}"
+# mkdir /etc/iptables/
+# echo "${green} Installing persistent firewall rules${reset}"
+# cp ./firewall/rules.v4 /etc/iptables
+# cp ./firewall/rules.v6 /etc/iptables
+# echo "${green} installing persistent firewall and sudo${reset}"
+# apt install iptables-persistent sudo -y
+# iptables-save > /etc/iptables/rules.v4
+# ip6tables-save > /etc/iptables/rules.v6
 
 # Remove setup files
 echo "${green} Cleaning up${reset}"
