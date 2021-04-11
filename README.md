@@ -1,6 +1,8 @@
 # Network Snitch
 ---
+<br>
 This repo is designed to automate the setup process for creation of a descrete device (Rapsberry Pi Zero) that can be deployed on any internal network and it will call back to the owner.  The device can easily be powered by a USB port on the router and the scripts were designed to use a wired connection through a microUSB-to-ethernet adaper (circumventing credential requirements).
+<br>
 ---
 
 ## Procedure
@@ -21,7 +23,7 @@ This repo is designed to automate the setup process for creation of a descrete d
 4. Plug the Rasberry Pi Zero into your local router and determine its local ip address
 5. Start up your "Home" machine (Linux or Mac)
 
-### Script Set Setup
+### Script-Set Setup
 
 1. *ON HOME:* Clone down the repository and `cd` into it
 
@@ -45,6 +47,6 @@ This repo is designed to automate the setup process for creation of a descrete d
 
 11. *ON TARGET:* Run `target_config.sh` as root entering user passwords and responding y/yes to any requests. System will reboot
 
-### Script Set Complete
+### Script-Set Setup Completed
 
 To connect to the snitch from any network you run ` ssh -p <snitchPort> snitch@<jumpServer.public.ipv4.address>`
