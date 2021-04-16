@@ -1,9 +1,8 @@
 # Network Snitch
 
 <br>
-This repo is designed to automate the setup process for creation of a device (Rapsberry Pi Zero) that can be deployed on any internal network and it will call back to the owner.  The device can easily be powered by a USB port on the router and the scripts were designed to use a wired connection through a microUSB-to-ethernet adaper (circumventing credential requirements).
+This repository is designed to automate the setup process for the creation of a device (Rapsberry Pi Zero) that can be deployed on any internal network and it will call back to the owner (Home Device).  The device can easily be powered by a USB port on the router and the scripts were designed to use a wired connection through a microUSB-to-ethernet adaper (circumventing credential requirements), however if the Rapsberry Pi Zero W is used then wireless can be uitiled by supplying the connection credentials before deployment.
 <br>
-
 
 ## Procedure
 
