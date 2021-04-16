@@ -17,7 +17,7 @@ This repository is designed to automate the setup process for the creation of a 
 - Source Type: Anywhere
 - Source: 0.0.0.0/0 
 
-2. Flash a SD card with chosen Rasbian Image
+2. Flash a SD card with chosen Rasbian Image (Lite reccomended)
 3. Add an empty file named `ssh` to the `/boot` directory
 4. Plug the Rasberry Pi Zero into your local router and determine its local ip address
 5. Start up your "Home" machine (Linux or Mac)
