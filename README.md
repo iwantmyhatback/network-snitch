@@ -1,7 +1,7 @@
 # Network Snitch
 
 <br>
-This repo is designed to automate the setup process for creation of a discrete device (Rapsberry Pi Zero) that can be deployed on any internal network and it will call back to the owner.  The device can easily be powered by a USB port on the router and the scripts were designed to use a wired connection through a microUSB-to-ethernet adaper (circumventing credential requirements).
+This repo is designed to automate the setup process for creation of a device (Rapsberry Pi Zero) that can be deployed on any internal network and it will call back to the owner.  The device can easily be powered by a USB port on the router and the scripts were designed to use a wired connection through a microUSB-to-ethernet adaper (circumventing credential requirements).
 <br>
 
 
@@ -11,7 +11,7 @@ This repo is designed to automate the setup process for creation of a discrete d
 1. If desired, then run the `change_snitch_port.sh` script and pass into it the desired snitch port
 
 ### Pre Setup 
-1. Create a jump server (public facing intermediate). This script set was designed with raspberry pi's on a local network for proof-of-concept and has been modifiedfor use with an AWS (Amazon Web Services) EC2. When deploying the EC2 the setup requires a Linux image, (tested with Ubuntu and Debian), and make sure to set an additional incoming rule for: 
+1. Create a jump server (public facing intermediate). This script set was designed with raspberry pi's on a local network for proof-of-concept and has been modified for use with an AWS (Amazon Web Services) EC2. When deploying the EC2 the setup requires a Linux image, (tested with Ubuntu and Debian), and make sure to set an additional incoming rule for: 
 - Type: Custom TCP
 - Protocol: TCP
 - Port range: <Desired Port>
